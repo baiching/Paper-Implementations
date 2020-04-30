@@ -1,6 +1,9 @@
 import torch
 import torch.nn
 
+class Flatten(nn.Module):
+    def forward(self, x):
+        return x.reshape(x.size(0), -1)
 
 class Vgg16Like(torch.nn.Module):
     def __init__(self):
@@ -47,6 +50,8 @@ class Vgg16Like(torch.nn.Module):
             nn.MaxPool2d(kernel_size=2, stride=2)
         )
     def four_conv_layer(self, in_channel, out_channel1, out_channel2, out_channel3, out_channel4):
+        #it is a optional function
+        #it will be needed if VGG19 is applied
         return nn.Sequential(
             nn.Conv2d(in_channel, out_channel1, kernel_size=3, padding=1, stride=1),
             nn.BatchNorm2d(out_channel1),
